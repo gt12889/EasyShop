@@ -1,0 +1,10 @@
+<img src="/images/logo.png" alt="eashshop logo">
+
+<div>
+{{#loggedin}}
+    Welcome&nbsp;<span style="font-weight: bold">{{username}}</span>&nbsp;|&nbsp;<a href="#" onclick="userService.logout();return false;">logout</a>
+{{/loggedin}}
+{{#loggedout}}
+    <a href="#"  onclick="showLoginForm();return false;">login</a>
+{{/loggedout}}
+</div>

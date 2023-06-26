@@ -1,10 +1,12 @@
 package org.yearup.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.CategoryDao;
 import org.yearup.data.ProductDao;
 import org.yearup.models.Category;
@@ -36,10 +38,16 @@ public class CategoriesController
     }
 
     // add the appropriate annotation for a get action
+    @GetMapping(path = "categories/{id}")
     public Category getById(@PathVariable int id)
     {
         // get the category by id
-        return null;
+        var category = categoryDao.getById(id);
+        if(category == null)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The id: " +id + "does not exist.");
+        }
+        return category;
     }
 
     // the url to return all products in category 1 would look like this

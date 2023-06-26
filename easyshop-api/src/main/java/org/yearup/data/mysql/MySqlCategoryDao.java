@@ -13,8 +13,6 @@ import java.util.List;
 @Component
 public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 {
-    private DataSource dataSource;
-
     @Autowired
     public MySqlCategoryDao(DataSource dataSource)
     {
@@ -28,7 +26,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 
         String sql = "SELECT * FROM categories";
 
-        try(Connection connection = dataSource.getConnection();
+        try(Connection connection = getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         )
         {
@@ -66,11 +64,11 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         // get category by id
         String sql = """
                 SELECT category_id
-                      	,name\s
+                      	,name
                       FROM categories
                       WHERE category_id = ?;
                 """;
-        try(Connection connection = dataSource.getConnection();
+        try(Connection connection = getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         )
         {
@@ -106,7 +104,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
                 INSERT INTO categories(category_id,name,description)
                 VALUES(?,?,?);
                 """;
-        try(Connection connection = dataSource.getConnection();
+        try(Connection connection = getDataSource().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         )
         {
@@ -132,8 +130,8 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         // update category
         String sql = """
                 UPDATE Categories
-                                              SET name = ?
-                                              WHERE category_id = ?;
+                SET name = ?
+                WHERE category_id = ?;
                 """;
 
         try(Connection connection = getDataSource().getConnection();

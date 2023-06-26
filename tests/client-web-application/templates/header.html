@@ -1,8 +1,13 @@
+
 <img src="/images/logo.png" alt="eashshop logo">
 
 <div>
 {{#loggedin}}
     Welcome&nbsp;<span style="font-weight: bold">{{username}}</span>&nbsp;|&nbsp;<a href="#" onclick="userService.logout();return false;">logout</a>
+    <div class="cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <div id="cart-items">0</div>
+    </div>
 {{/loggedin}}
 {{#loggedout}}
     <a href="#"  onclick="showLoginForm();return false;">login</a>

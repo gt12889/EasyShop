@@ -2,7 +2,7 @@ let templateBuilder = {};
 
 class TemplateBuilder
 {
-    build(templateName, value, target)
+    build(templateName, value, target, callback)
     {
         axios.get(`templates/${templateName}.html`)
             .then(response => {
@@ -11,6 +11,8 @@ class TemplateBuilder
                     const template = response.data;
                     const html = Mustache.render(template, value);
                     document.getElementById(target).innerHTML = html;
+
+                    if(callback) callback();
                 }
                 catch(e)
                 {
@@ -34,7 +36,15 @@ class TemplateBuilder
                      const html = Mustache.render(template, value);
 
                      const element = this.createElementFromHTML(html);
-                     document.getElementById(target).appendChild(element);
+                     const parent = document.getElementById(target);
+                     parent.appendChild(element);
+
+                     if(templateName == "error")
+                     {
+                         setTimeout(() => {
+                             parent.removeChild(element);
+                         }, 3000);
+                     }
                  }
                  catch(e)
                  {

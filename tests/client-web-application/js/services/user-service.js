@@ -9,6 +9,17 @@ class UserService {
         this.loadUser();
     }
 
+    getHeader()
+    {
+        if(this.currentUser.token) {
+            return {
+                    'Authorization': `Bearer ${this.currentUser.token}`
+            };
+        }
+
+        return {};
+    }
+
     saveUser(user)
     {
         this.currentUser = {
@@ -26,6 +37,7 @@ class UserService {
         if(user)
         {
             this.currentUser = JSON.parse(user);
+            axios.defaults.headers.common = {'Authorization': `Bearer ${this.currentUser.token}`}
         }
     }
 
@@ -83,9 +95,14 @@ class UserService {
              .then(response => {
                  console.log(response.data)
              })
-             .catch(error => {
-                 console.log(error);
-             });
+            .catch(error => {
+
+                const data = {
+                    error: "User registration failed."
+                };
+
+                templateBuilder.append("error", data, "errors")
+            });
     }
 
     login (username, password)
@@ -100,6 +117,10 @@ class UserService {
             .then(response => {
                 this.saveUser(response.data)
                 this.setHeaderLogin();
+
+                axios.defaults.headers.common = {'Authorization': `bearer ${this.currentUser.token}`}
+                productService.enableButtons();
+                cartService.loadCart();
             })
             .catch(error => {
                 const data = {
@@ -117,6 +138,8 @@ class UserService {
 
         // window.history.pushState({"html":"login.html","pageTitle":"Login"},"", "login.html");
         this.setHeaderLogin();
+
+        productService.enableButtons();
     }
 
 }

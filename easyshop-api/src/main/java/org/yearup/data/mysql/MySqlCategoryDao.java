@@ -107,7 +107,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
                 VALUES(?,?,?);
                 """;
         try(Connection connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+            PreparedStatement statement = connection.prepareStatement(sql)
         )
         {
             statement.setInt(1,category.getCategoryId());

@@ -5,19 +5,26 @@
     <title>Title</title>
 
     <!--  CSS  -->
-    <link rel="stylesheet" href="css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="css/lib/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/main.css">
 
     <!--  JS  -->
     <script src="js/lib/axios.min.js"></script>
     <script src="js/lib/mustache.js"></script>
-<!--    <script src="js/lib/jquery.min.js"></script>-->
     <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/jquery.min.js"></script>
 
+    <script src="js/config.js"></script>
     <script src="js/template-builder.js"></script>
     <script src="js/services/products-service.js"></script>
+    <script src="js/services/categories-service.js"></script>
     <script src="js/services/user-service.js"></script>
-    <script src="js/config.js"></script>
+    <script src="js/services/shoppingcart-service.js"></script>
+
+    <script src="js/filter.js"></script>
+
+
     <script src="js/application.js"></script>
 </head>
 <body>
@@ -29,9 +36,7 @@
 
     <section id="login"></section>
 
-    <main>
-        <div class="filter"></div>
-        <div id="content" class="content"></div>
+    <main id="main">
     </main>
 
     <footer></footer>

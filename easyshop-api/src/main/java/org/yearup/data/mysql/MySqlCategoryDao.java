@@ -1,5 +1,6 @@
 package org.yearup.data.mysql;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yearup.data.CategoryDao;
 import org.yearup.models.Category;
@@ -15,6 +16,9 @@ import java.util.List;
 @Component
 public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 {
+    private DataSource dataSource;
+
+    @Autowired
     public MySqlCategoryDao(DataSource dataSource)
     {
         super(dataSource);
@@ -27,7 +31,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
 
         String sql = "SELECT * FROM categories";
 
-        try(Connection connection = getDataSource().getConnection();
+        try(Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         )
         {
@@ -63,6 +67,37 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
     public Category getById(int categoryId)
     {
         // get category by id
+        String sql = """
+                SELECT category_id
+                      	,name\s
+                      FROM categories
+                      WHERE category_id = ?;
+                """;
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)
+        )
+        {
+            statement.setInt(1,categoryId);
+
+            ResultSet row = statement.executeQuery();
+            while(row.next())
+            {
+                int id = row.getInt("category_id");
+                String name = row.getString("name");
+                Category category = new Category()
+                {{
+                    setCategoryId(categoryId);
+                    setName(name);
+                }};
+                return category;
+            }
+
+        }catch (SQLException e)
+        {
+            System.out.println();
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
         return null;
     }
 

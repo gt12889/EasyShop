@@ -139,7 +139,7 @@ public class MySqlCategoryDao extends MySqlDaoBase implements CategoryDao
         )
         {
            statement.setString(1,category.getName());
-            statement.setInt(5, categoryId);
+            statement.setInt(2, categoryId);
 
             statement.executeUpdate();
 

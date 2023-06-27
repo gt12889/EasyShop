@@ -3,14 +3,12 @@ package org.yearup.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.yearup.data.ProductDao;
 import org.yearup.data.ShoppingCartDao;
 import org.yearup.data.UserDao;
+import org.yearup.models.Product;
 import org.yearup.models.ShoppingCart;
 import org.yearup.models.User;
 
@@ -62,12 +60,29 @@ public class ShoppingCartController
 
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
-    @PostMapping("/shoppingCart")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ShoppingCart addToCart(@RequestBody ShoppingCart shoppingCart)
+//    @PostMapping("/shoppingCart")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ShoppingCart addToCart(@PathVariable("productId") int productId, @RequestBody ShoppingCart shoppingCart)
+//    {
+//        if(productId == 0)
+//        {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"The product:" +productId + "does not exist.");
+//        }
+////        ShoppingCart createdInt = shoppingCartDao.addCart(productId);
+//        Product product = productDao.getById(productId);
+//        ShoppingCart updatedCart = shoppingCartDao.addCart(shoppingCart);
+//        //shoppingCart.addProduct(productId);
+//        return updatedCart;
+//
+//    }
+
+    @PostMapping("/cart/products/{productId}")
+    public void addToCart(Principal principal, @PathVariable int productId)
     {
-        ShoppingCart createdShoppingCart = shoppingCartDao.addCart(shoppingCart);
-        return createdShoppingCart;
+        String userName = principal.getName();
+        User user = userDao.getByUserName(userName);
+        int userId = user.getId();
+        shoppingCartDao.addCart(1,);
     }
 
 
@@ -79,5 +94,6 @@ public class ShoppingCartController
 
     // add a DELETE method to clear all products from the current users cart
     // https://localhost:8080/cart
+
 
 }

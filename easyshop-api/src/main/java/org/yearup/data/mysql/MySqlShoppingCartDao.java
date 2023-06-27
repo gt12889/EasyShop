@@ -71,9 +71,9 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
 
 
 
+
     @Override
-    public ShoppingCart addCart(ShoppingCart shoppingCart)
-    {
+    public ShoppingCart addCart(ShoppingCart shoppingCart) {
 
         String sql = """
                 INSERT INTO shopping_cart(user_id, product_id,quantity)
@@ -86,8 +86,13 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
            statement.setInt(1,shoppingCart.getUserId());
            statement.setInt(2,shoppingCart.getProductId());
            statement.setInt(3,shoppingCart.getQuantity());
-
-            statement.executeUpdate();
+           statement.executeUpdate();
+//            if(ResultSet.next())
+//            {
+//                int quantity = ResultSet.getInt("quantity")+1;
+                //update(userId,productId)
+//
+//            }
 
         }
         catch (SQLException e)
@@ -100,12 +105,12 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     }
 
     @Override
-    public ShoppingCart update(int userId, ShoppingCart shoppingCart)
+    public void update(int userId, ShoppingCart shoppingCart)
     {
         String sql = """
                 UPDATE shopping_cart
                 	SET product_id = 12
-                    WHERE user_id = 4;
+                    WHERE user_id = ?;
                 """;
 
         try(Connection connection = getDataSource().getConnection();
@@ -123,11 +128,11 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
             System.out.println(e.getMessage());
             System.out.println();
         }
-        return null;
+
     }
 
     @Override
-    public ShoppingCart delete(int userId)
+    public void delete(int userId)
     {
         String sql = """
                 DELETE FROM shopping_cart
@@ -148,7 +153,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
             System.out.println();
 
         }
-        return null;
+
     }
 
 

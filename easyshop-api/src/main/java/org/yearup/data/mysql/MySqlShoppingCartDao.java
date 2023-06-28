@@ -109,8 +109,15 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     //get cart method
 
     public ShoppingCart getCart(int userId) {
+
+        ShoppingCart cart = new ShoppingCart();
         String sql = """
-            SELECT * FROM shopping_cart WHERE user_id = ?;
+            SELECT p.*
+                , sc.quantity
+            FROM products as p
+            INNER JOIN shopping_cart  as sc
+                ON p.product_id = sc.product_id
+            WHERE user_id = ?;
             
             """;
         try (Connection connection = getDataSource().getConnection();
@@ -120,14 +127,21 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
 
             try (ResultSet resultSet = statement.executeQuery()) {
 
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                    
                     int productId = resultSet.getInt("product_id");
                     int quantity = resultSet.getInt("quantity");
+                    // create product
+                    Product product = new Product();
+                    // set all of the product details
+
+                    // create shopping cart item
+                    ShoppingCartItem item = new ShoppingCartItem();
+                    // add the product
+                    // and quantity
 
 
-                    ShoppingCart cart = new ShoppingCart(userId, productId, quantity);
-                    return cart;
+                     cart.add(item);
                 }
             }
 
@@ -138,7 +152,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
         }
 
 
-        return null;
+        return cart;
     }
 
     @Override

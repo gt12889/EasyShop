@@ -99,7 +99,7 @@ public class ShoppingCartController
         String userName = principal.getName();
         User user = userDao.getByUserName(userName);
         int userId = user.getId();
-        shoppingCartDao.update(productId,);
+        shoppingCartDao.update(productId);
     }
 
 

@@ -77,12 +77,14 @@ public class ShoppingCartController
 //    }
 
     @PostMapping("/cart/products/{productId}")
-    public void addToCart(Principal principal, @PathVariable int productId)
+    @PreAuthorize("isAuthenticated()")
+    public ShoppingCart addToCart(Principal principal, @PathVariable int productId)
     {
         String userName = principal.getName();
         User user = userDao.getByUserName(userName);
         int userId = user.getId();
-        shoppingCartDao.addCart(1,);
+        return shoppingCartDao.addCart(userId,productId);
+
     }
 
 

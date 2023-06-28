@@ -19,7 +19,9 @@ The existing API code serves as the backend for the website and provides the nec
 
 ## Technologies Used
 Backend: Spring Boot, Java
+
 Frontend: HTML, CSS, JavaScript 
+
 Database: MySQLWorkbench
 
 

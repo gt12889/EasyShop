@@ -128,15 +128,19 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
             try (ResultSet resultSet = statement.executeQuery()) {
 
                 while (resultSet.next()) {
-                   
+                    int id = resultSet.getInt("user_id");
                     int productId = resultSet.getInt("product_id");
                     int quantity = resultSet.getInt("quantity");
+                    String name = resultSet.getString("name");
+
                     // create product
                     Product product = new Product();
 
                     // set all of the product details
                     product.setProductId(productId);
-                    product.setDescription();
+                    product.setDescription(product.getDescription());
+                    product.setName(name);
+
 
                     // create shopping cart item
                     ShoppingCartItem item = new ShoppingCartItem();

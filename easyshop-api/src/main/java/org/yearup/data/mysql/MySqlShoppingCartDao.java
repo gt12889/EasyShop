@@ -23,6 +23,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
         super(dataSource);
     }
 
+    @Override
     public ShoppingCart addCart(int userId, int productId)
     {
 
@@ -84,14 +85,29 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
                 int prod_id = row.getInt("product_id");
                 int quantity = row.getInt("quantity");
                 String name = row.getString("name");
+                int category_id = row.getInt("category_id");
+                String description = row.getString("description");
+                String color = row.getString("color");
+                String image_url = row.getString("image_url");
+                int stock = row.getInt("stock");
+                boolean featured = row.getBoolean("featured");
+
                 // create a product
                 Product product = new Product();
-
+                product.setProductId(prod_id);
+                product.setName(name);
+                product.setCategoryId(category_id);
+                product.setDescription(description);
+                product.setColor(color);
+                product.setImageUrl(image_url);
+                product.setStock(stock);
+                product.setFeatured(featured);
 
                 // create a shoppingCartItem
                 ShoppingCartItem item = new ShoppingCartItem();
                 item.setProduct(product);
                 item.setQuantity(quantity);
+
                 // add it to the shoppingCart
                 shoppingCart.add(item);
             }

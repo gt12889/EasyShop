@@ -22,5 +22,4 @@ public abstract class MySqlDaoBase
         return dataSource.getConnection();
     }
 
-    public abstract ShoppingCart addCart(int userId, int productId);
 }

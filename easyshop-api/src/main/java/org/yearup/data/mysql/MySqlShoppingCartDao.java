@@ -111,6 +111,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     public ShoppingCart getCart(int userId) {
         String sql = """
             SELECT * FROM shopping_cart WHERE user_id = ?;
+            
             """;
         try (Connection connection = getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -129,6 +130,16 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
                     return cart;
                 }
             }
+
+        } catch (SQLException e) {
+            System.out.println();
+            System.out.println(e.getMessage());
+            System.out.println();
+        }
+
+
+        return null;
+    }
 
     @Override
     public void update(int userId, ShoppingCart shoppingCart)

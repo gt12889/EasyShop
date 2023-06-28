@@ -99,7 +99,20 @@ public class ShoppingCartController
         String userName = principal.getName();
         User user = userDao.getByUserName(userName);
         int userId = user.getId();
-        shoppingCartDao.update(productId,);
+        productId = productDao.getById();
+        //curent cart
+        var currentShoppingCart = shoppingCartDao.getByUserId(userId);
+
+        if (currentShoppingCart == null)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The");
+        }
+        try
+        {
+            shoppingCartDao.update(productId,shoppingCart);
+        }
+        catch (Exception ex) {}
+        //shoppingCartDao.update(productId,);
     }
 
 

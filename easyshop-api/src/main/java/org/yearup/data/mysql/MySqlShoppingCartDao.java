@@ -89,6 +89,9 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
                 String description = row.getString("description");
                 String color = row.getString("color");
                 String image_url = row.getString("image_url");
+                int stock = row.getInt("stock");
+                boolean featured = row.getBoolean("featured");
+
                 // create a product
                 Product product = new Product();
                 product.setProductId(prod_id);
@@ -97,10 +100,12 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
                 product.setDescription(description);
                 product.setColor(color);
                 product.setImageUrl(image_url);
+
                 // create a shoppingCartItem
                 ShoppingCartItem item = new ShoppingCartItem();
                 item.setProduct(product);
                 item.setQuantity(quantity);
+
                 // add it to the shoppingCart
                 shoppingCart.add(item);
             }

@@ -26,11 +26,17 @@ Database: MySQLWorkbench
 
 ## Pictures
 
+Successful tests
+
+
 ![image](https://github.com/gdzierzon/FinalCapstone_EasyShop_Team_4/assets/130225802/c0a305bf-fb91-4252-9fa8-78d08549ce2c)
+
 
 ![image](https://github.com/gdzierzon/FinalCapstone_EasyShop_Team_4/assets/130225802/1b676879-f4f3-4561-9b50-9ac47c98245c)
 
+
 ![image](https://github.com/gdzierzon/FinalCapstone_EasyShop_Team_4/assets/130225802/27d10207-2ad8-4c3d-9c7f-eb3c51f75ac8)
+
 
 ![image](https://github.com/gdzierzon/FinalCapstone_EasyShop_Team_4/assets/130225802/426c463d-8b36-43a2-a174-54f4cf0e6d7f)
 

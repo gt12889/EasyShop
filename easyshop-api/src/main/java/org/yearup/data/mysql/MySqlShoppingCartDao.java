@@ -100,6 +100,8 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
                 product.setDescription(description);
                 product.setColor(color);
                 product.setImageUrl(image_url);
+                product.setStock(stock);
+                product.setFeatured(featured);
 
                 // create a shoppingCartItem
                 ShoppingCartItem item = new ShoppingCartItem();

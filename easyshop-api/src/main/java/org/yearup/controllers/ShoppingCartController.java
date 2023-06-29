@@ -115,7 +115,7 @@ public class ShoppingCartController
         }
         try
         {
-            shoppingCartDao.update(productId,item);
+            shoppingCartDao.update(userId,productId,item);
         }
         catch (Exception ex) {}
         //shoppingCartDao.update(productId,);

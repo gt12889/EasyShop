@@ -125,7 +125,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     }
 
     @Override
-    public void update(int userId, ShoppingCartItem shoppingCartItem)
+    public void update(int userId,int productId, ShoppingCartItem shoppingCartItem)
     {
         String sql = """
                 UPDATE shopping_cart

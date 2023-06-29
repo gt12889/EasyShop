@@ -61,27 +61,6 @@ public class ShoppingCartController
 
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
-
-
-//    @PostMapping("/shoppingCart")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ShoppingCart addToCart(@PathVariable("productId") int productId, @RequestBody ShoppingCart shoppingCart)
-//    {
-//        if(productId == 0)
-//        {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"The product:" +productId + "does not exist.");
-//        }
-////        ShoppingCart createdInt = shoppingCartDao.addCart(productId);
-//        Product product = productDao.getById(productId);
-//        ShoppingCart updatedCart = shoppingCartDao.addCart(shoppingCart);
-//        //shoppingCart.addProduct(productId);
-//        return updatedCart;
-//
-//    }
-
-
-    // add a POST method to add a product to the cart - the url should be
-    // https://localhost:8080/cart/products/15 (15 is the productId to be added
     @PostMapping("/cart/products/{productId}")
     @PreAuthorize("isAuthenticated()")
     public ShoppingCart addToCart(Principal principal, @PathVariable int productId)

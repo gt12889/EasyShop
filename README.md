@@ -41,6 +41,8 @@ Successful tests
 ![image](https://github.com/gdzierzon/FinalCapstone_EasyShop_Team_4/assets/130225802/426c463d-8b36-43a2-a174-54f4cf0e6d7f)
 
 
+![image (2)](https://github.com/gdzierzon/FinalCapstone_EasyShop_Team_4/assets/130225802/ae82c994-1d63-4dd1-b840-6603f6e6b21a)
+
 
 
 

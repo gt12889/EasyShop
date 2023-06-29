@@ -130,7 +130,9 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
         String sql = """
                 UPDATE shopping_cart
                 SET quantity = ?
-                WHERE product_id = ?;
+                WHERE product_id = ?
+                AND user_id = ?;
+           
                 """;
 
         try(Connection connection = getDataSource().getConnection();

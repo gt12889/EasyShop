@@ -36,6 +36,47 @@ function loadHome()
     categoryService.getAllCategories(loadCategories);
 }
 
+function editProfile()
+{
+    profileService.loadProfile();
+}
+
+function saveProfile()
+{
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const address = document.getElementById("address").value;
+    const city = document.getElementById("city").value;
+    const state = document.getElementById("state").value;
+    const zip = document.getElementById("zip").value;
+
+    const profile = {
+        firstName,
+        lastName,
+        phone,
+        email,
+        address,
+        city,
+        state,
+        zip
+    };
+
+    profileService.updateProfile(profile);
+}
+
+function showCart()
+{
+    cartService.loadCartPage();
+}
+
+function clearCart()
+{
+    cartService.clearCart();
+    cartService.loadCartPage();
+}
+
 function setCategory(control)
 {
     productService.addCategoryFilter(control.value);

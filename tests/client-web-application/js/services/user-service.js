@@ -118,7 +118,7 @@ class UserService {
                 this.saveUser(response.data)
                 this.setHeaderLogin();
 
-                axios.defaults.headers.common = {'Authorization': `bearer ${this.currentUser.token}`}
+                axios.defaults.headers.common = {'Authorization': `Bearer ${this.currentUser.token}`}
                 productService.enableButtons();
                 cartService.loadCart();
             })
@@ -134,9 +134,9 @@ class UserService {
     logout()
     {
         localStorage.removeItem('user');
+        axios.defaults.headers.common = {'Authorization': `bearer ${this.currentUser.token}`}
         this.currentUser = {};
 
-        // window.history.pushState({"html":"login.html","pageTitle":"Login"},"", "login.html");
         this.setHeaderLogin();
 
         productService.enableButtons();

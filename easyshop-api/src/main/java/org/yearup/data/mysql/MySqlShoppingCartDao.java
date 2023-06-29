@@ -8,6 +8,7 @@ import org.yearup.models.ShoppingCart;
 import org.yearup.models.ShoppingCartItem;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,16 +61,15 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     public ShoppingCart getByUserId(int userId)
     {
 
-        ShoppingCart shoppingCart = new ShoppingCart();
+                 ShoppingCart shoppingCart = new ShoppingCart();
         // get cart by id:
         String sql = """
-                SELECT user_id
-                	,cart.product_id
-                	,quantity
-                    ,p.name
+                SELECT p.*
+                	, cart.quantity
                 FROM shopping_cart AS cart
                 INNER JOIN products as p
                  ON p.product_id = cart.product_id
+                WHERE user_id = ?;
                 """;
 
         try(Connection connection = getDataSource().getConnection();
@@ -81,7 +81,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
             ResultSet row = statement.executeQuery();
             while(row.next())
             {
-                int id = row.getInt("user_id");
+//                int id = row.getInt("user_id");
                 int prod_id = row.getInt("product_id");
                 int quantity = row.getInt("quantity");
                 String name = row.getString("name");
@@ -91,6 +91,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
                 String image_url = row.getString("image_url");
                 int stock = row.getInt("stock");
                 boolean featured = row.getBoolean("featured");
+                BigDecimal price = row.getBigDecimal("price");
 
                 // create a product
                 Product product = new Product();
@@ -102,6 +103,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
                 product.setImageUrl(image_url);
                 product.setStock(stock);
                 product.setFeatured(featured);
+                product.setPrice(price);
 
                 // create a shoppingCartItem
                 ShoppingCartItem item = new ShoppingCartItem();
@@ -127,7 +129,7 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
     {
         String sql = """
                 UPDATE shopping_cart
-                SET quantity = 3
+                SET quantity = ?
                 WHERE product_id = ?;
                 """;
 

@@ -10,6 +10,7 @@ import org.yearup.data.ShoppingCartDao;
 import org.yearup.data.UserDao;
 import org.yearup.models.Product;
 import org.yearup.models.ShoppingCart;
+import org.yearup.models.ShoppingCartItem;
 import org.yearup.models.User;
 
 import java.security.Principal;
@@ -32,7 +33,7 @@ public class ShoppingCartController
     }
 
     // each method in this controller requires a Principal object as a parameter
-    @GetMapping(path="shoppingCart")
+    @GetMapping(path="cart")
     public ShoppingCart getCart(Principal principal)
     {
         try
@@ -60,6 +61,8 @@ public class ShoppingCartController
 
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
+
+
 //    @PostMapping("/shoppingCart")
 //    @PreAuthorize("hasRole('ADMIN')")
 //    public ShoppingCart addToCart(@PathVariable("productId") int productId, @RequestBody ShoppingCart shoppingCart)
@@ -76,6 +79,9 @@ public class ShoppingCartController
 //
 //    }
 
+
+    // add a POST method to add a product to the cart - the url should be
+    // https://localhost:8080/cart/products/15 (15 is the productId to be added
     @PostMapping("/cart/products/{productId}")
     @PreAuthorize("isAuthenticated()")
     public ShoppingCart addToCart(Principal principal, @PathVariable int productId)
@@ -94,12 +100,12 @@ public class ShoppingCartController
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
     @PutMapping("/cart/products/{productId}")
     @PreAuthorize("isAuthenticated()")
-    public void updateByQuantity(Principal principal,@PathVariable int productId,@RequestBody int quantity)
+    public ShoppingCart updateByQuantity(Principal principal,@PathVariable int productId,@RequestBody ShoppingCartItem item)
     {
         String userName = principal.getName();
         User user = userDao.getByUserName(userName);
         int userId = user.getId();
-        productId = productDao.getById();
+        //productId = productDao.getById();
         //curent cart
         var currentShoppingCart = shoppingCartDao.getByUserId(userId);
 
@@ -109,10 +115,12 @@ public class ShoppingCartController
         }
         try
         {
-            shoppingCartDao.update(productId,shoppingCart);
+            shoppingCartDao.update(productId,item);
         }
         catch (Exception ex) {}
         //shoppingCartDao.update(productId,);
+
+        return getCart(principal);
     }
 
 

@@ -13,10 +13,7 @@
 //import org.springframework.web.server.ResponseStatusException;
 //import org.yearup.data.*;
 //import org.yearup.data.mysql.MySqlCategoryDao;
-//import org.yearup.models.Category;
-//import org.yearup.models.Product;
-//import org.yearup.models.ShoppingCart;
-//import org.yearup.models.User;
+//import org.yearup.models.*;
 //
 //import java.security.Principal;
 //import java.util.ArrayList;
@@ -38,17 +35,17 @@
 //
 //    // each method in this controller requires a Principal object as a parameter
 //    @GetMapping(path="profile")
-//    public profile getProfile(int userId)
+//    public Profile getProfile(int userId)
 //    {
 //        try
 //        {
 //            // get the currently logged-in username
-//            String userName = principal.getName();
+//            String userName = userId.();
 //            // find database user by userId
 //            User user = profileDao.getByUserId(userName);
 //            int userId = user.getId();
 //
-//            // use the shoppingcartDao to get all items in the cart and return the cart
+//            // use the profileDAO to get all items in the cart and return the cart
 //            var profile = profileDao.getByUserId(userId);
 //            if(profile == null)
 //            {
@@ -62,4 +59,4 @@
 //            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
 //        }
 //    }
-//}
+}

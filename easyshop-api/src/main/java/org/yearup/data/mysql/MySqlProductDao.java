@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yearup.models.Product;
 import org.yearup.data.ProductDao;
+import org.yearup.models.ShoppingCart;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
     {
         super(dataSource);
     }
+
 
     @Override
     public List<Product> search(Integer categoryId, BigDecimal minPrice, BigDecimal maxPrice, String color)
@@ -97,7 +99,8 @@ public class MySqlProductDao extends MySqlDaoBase implements ProductDao
     @Override
     public Product getById(int productId)
     {
-        String sql = "SELECT * FROM products WHERE product_id = ?";
+        String sql = "SELECT * " +
+                "FROM products WHERE product_id = ?";
         try (Connection connection = getConnection())
         {
             PreparedStatement statement = connection.prepareStatement(sql);

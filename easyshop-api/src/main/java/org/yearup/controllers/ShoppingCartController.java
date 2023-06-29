@@ -77,18 +77,43 @@ public class ShoppingCartController
 //    }
 
     @PostMapping("/cart/products/{productId}")
-    public void addToCart(Principal principal, @PathVariable int productId)
+    @PreAuthorize("isAuthenticated()")
+    public ShoppingCart addToCart(Principal principal, @PathVariable int productId)
     {
         String userName = principal.getName();
         User user = userDao.getByUserName(userName);
         int userId = user.getId();
-        shoppingCartDao.addCart(1,);
+
+        return shoppingCartDao.addCart(userId,productId);
+
     }
 
 
     // add a PUT method to update an existing product in the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be updated)
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated
+    @PutMapping("/cart/products/{productId}")
+    @PreAuthorize("isAuthenticated()")
+    public void updateByQuantity(Principal principal,@PathVariable int productId,@RequestBody int quantity)
+    {
+        String userName = principal.getName();
+        User user = userDao.getByUserName(userName);
+        int userId = user.getId();
+        productId = productDao.getById();
+        //curent cart
+        var currentShoppingCart = shoppingCartDao.getByUserId(userId);
+
+        if (currentShoppingCart == null)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The");
+        }
+        try
+        {
+            shoppingCartDao.update(productId,shoppingCart);
+        }
+        catch (Exception ex) {}
+        //shoppingCartDao.update(productId,);
+    }
 
 
 

@@ -90,7 +90,7 @@ public class ShoppingCartController
 
         if (currentShoppingCart == null)
         {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The product can not be found");
         }
         try
         {

@@ -35,6 +35,7 @@ public class ProfileController {
 
     // each method in this controller requires a Principal object as a parameter
     @GetMapping(path="profile")
+    @PreAuthorize("isAuthenticated()")
     public Profile getProfile(Principal principal)
     {
         try
@@ -59,4 +60,30 @@ public class ProfileController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
         }
     }
+    @PutMapping("/profile/update")
+    @PreAuthorize("isAuthenticated()")
+    public Profile updateProfile(Principal principal,@PathVariable int productId)
+    {
+        String userName = principal.getName();
+        User user = userDao.getByUserName(userName);
+        int userId = user.getId();
+        //productId = productDao.getById();
+        //curent cart
+        
+        var profile = profileDao.getByUserId(userId);
+        if (profile == null)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The profile " + profile.toString() + "does not exist");
+        }
+        try
+        {
+            profileDao.update(userId,profile);
+        }
+        catch (Exception ex) {}
+        //shoppingCartDao.update(productId,);
+
+        return getProfile(principal);
+    }
+
+
 }

@@ -67,9 +67,8 @@ public class ProfileController {
         String userName = principal.getName();
         User user = userDao.getByUserName(userName);
         int userId = user.getId();
-        //productId = productDao.getById();
-        //curent cart
-        
+
+
         var profile = profileDao.getByUserId(userId);
         if (profile == null)
         {
@@ -80,7 +79,7 @@ public class ProfileController {
             profileDao.update(userId,profile);
         }
         catch (Exception ex) {}
-        //shoppingCartDao.update(productId,);
+        //profile.update(userId,profile);
 
         return getProfile(principal);
     }
